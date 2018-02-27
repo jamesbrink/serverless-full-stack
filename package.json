@@ -1,0 +1,16 @@
+{
+  "name": "serverless-full-stack",
+  "version": "1.0.0",
+  "description": "Simple plugin to assist with deploying fullstack serverless apps to AWS ",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "James Brink",
+  "license": "ISC",
+  "dependencies": {
+    "get-installed-path": "^4.0.8",
+    "lodash": "^4.17.5",
+    "serverless-finch": "^1.4.0"
+  }
+}
