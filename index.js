@@ -17,14 +17,14 @@ class FullStack {
       },
       client: {
         usage: 'Generate and deploy clients',
-        lifecycleEvents:[
+        lifecycleEvents: [
           'client',
           'deploy'
         ],
         commands: {
           config: {
             usage: 'Configure client by executing config script.',
-            lifecycleEvents:[
+            lifecycleEvents: [
               'config'
             ]
           },
@@ -42,12 +42,18 @@ class FullStack {
         // Run client config and deploy after services have deployed.
         this.serverless.cli.log('Running client configuration.');
         this._configureClient();
-        return this.serverless.pluginManager.spawn('client:deploy');
+        let deployWithService = _.get(this.serverless, 'service.custom.client.deployWithService');
+        if (deployWithService) {
+          return this.serverless.pluginManager.spawn('client:deploy');
+        }
       },
       'after:remove:remove': () => {
         // Remove client
-        this.serverless.cli.log('Removing client');
-        return this.serverless.pluginManager.spawn('client:remove');
+        let deployWithService = _.get(this.serverless, 'service.custom.client.deployWithService');
+        if (deployWithService) {
+          this.serverless.cli.log('Removing client');
+          return this.serverless.pluginManager.spawn('client:remove');
+        }
       },
     };
   }
